@@ -2,15 +2,18 @@ import java.lang.System;
 
 Population test;
 Goal goal = new Goal(400,10);
+HUD hud;
 
 void setup() {
   size(800,800);
   test = new Population(100);
+  hud =  new HUD(test);
 }
 
 void draw() {
   background(255);
   goal.show();
+  hud.show();
   
   if (test.popDead()) {
     test.getFitness(); // Get fitness of all dots in population
