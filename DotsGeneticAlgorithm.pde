@@ -25,3 +25,14 @@ void draw() {
   }
   
 }
+
+void mousePressed() {
+    println("Pressed");
+    if (hud.overButton((int)hud.rectpos.x,(int)hud.rectpos.y,hud.rectSize,hud.rectSize)) {
+      if (test.starting == true) {
+        test.starting = false;
+      } else {
+        test.starting = true;
+      }
+    }
+  }

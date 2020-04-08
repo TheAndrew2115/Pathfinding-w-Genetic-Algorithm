@@ -6,6 +6,8 @@ class Population {
   
   int minStep = 400;
   
+  boolean starting = false;
+  
   Population(int size) {
     dots = new Dot[size];
     for (int i = 0; i < size; i++) {
@@ -21,11 +23,13 @@ class Population {
   }
   
   void update() {
-    for (int i = 0; i < dots.length; i++) {
-      if (dots[i].brain.step > minStep) {
-        dots[i].dead = true;
-      } else {
-        dots[i].update();
+    if (starting) {
+      for (int i = 0; i < dots.length; i++) {
+        if (dots[i].brain.step > minStep) {
+          dots[i].dead = true;
+        } else {
+          dots[i].update();
+        }
       }
     }
   }
