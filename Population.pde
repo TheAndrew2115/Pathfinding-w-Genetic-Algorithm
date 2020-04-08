@@ -20,4 +20,19 @@ class Population {
     }
   }
   
+  void getFitness() {
+    for (int i = 0; i < dots.length; i++) {
+      dots[i].getFitness(); 
+    }
+  }
+  
+  boolean popDead() {
+    for (int i = 0; i < dots.length; i++) {
+      if (!dots[i].dead && !dots[i].reachedGoal) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
 }

@@ -8,18 +8,26 @@ class Dot {
   int radius = 2;
   int maxSpeed = 5;
   boolean dead = false;
+  boolean reachedGoal = false;
+  float fitness = 0;
   
   Dot() {
     brain = new Brain(400);
     
-    pos = new PVector(width/2, height/2);
+    pos = new PVector(width/2, height -10);
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
   }
 
   void show() {
-    fill(0);
-    ellipse(pos.x,pos.y,2*radius,2*radius);
+    if (!dead) {
+      fill(0);
+      ellipse(pos.x,pos.y,2*radius,2*radius);
+    } else {
+      fill(255,0,0);
+      ellipse(pos.x,pos.y,2*radius,2*radius);
+    }
+    
   }
   
   void move() {
@@ -37,11 +45,18 @@ class Dot {
   
   void update() {
     println(pos.x,pos.y);
-    if (!dead) {
+    if (!dead && !reachedGoal) {
       move();
       if (pos.x < radius || pos.y < radius || pos.x > width-radius || pos.y > height-radius) {
         dead = true; 
+      } else if (dist(pos.x,pos.y,goal.pos.x,goal.pos.y) < 5) {
+        reachedGoal = true;
       }
     }
+  }
+  
+  void getFitness() {
+    float distance = dist(pos.x,pos.y,goal.pos.x,goal.pos.y);
+    fitness = 1.0/(distance * distance);
   }
 }

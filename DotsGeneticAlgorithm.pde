@@ -1,6 +1,7 @@
 import java.lang.System;
 
 Population test;
+Goal goal = new Goal(400,10);
 
 void setup() {
   size(800,800);
@@ -9,6 +10,14 @@ void setup() {
 
 void draw() {
   background(255);
-  test.update();
-  test.show();
+  
+  if (test.popDead()) {
+    test.getFitness(); // Get fitness of all dots in population
+    //test.naturalSelection(); // Weed out the 'weaker' dots (The ones farther away)
+    //test.mutate(); // Mutate some of the next generation's dots
+  } else {
+    test.update();
+    test.show();
+  }
+  goal.show();
 }
