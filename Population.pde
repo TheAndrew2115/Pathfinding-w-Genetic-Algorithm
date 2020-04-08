@@ -47,7 +47,7 @@ class Population {
     newDots[0] = dots[bestDotIndex].getBaby(); //This prevents the generations from mutating in a harmful way
     newDots[0].isBest = true;
     
-    for (int i = 0; i < newDots.length; i++) {
+    for (int i = 1; i < newDots.length; i++) {
        Dot parent = selectParent();
        newDots[i] = parent.getBaby();
     }
@@ -76,7 +76,7 @@ class Population {
   }
   
   void mutate() {
-    for (int i = 0; i < dots.length; i++) {
+    for (int i = 1; i < dots.length; i++) {
       dots[i].brain.mutateBrain();
     }
   }

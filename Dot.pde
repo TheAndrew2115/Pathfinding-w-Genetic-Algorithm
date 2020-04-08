@@ -23,6 +23,8 @@ class Dot {
   void show() {
     if (isBest) {
       fill(0,0,255);
+      ellipse(pos.x,pos.y,10,10); //I'm showing the best dot of each generation as a blue one 
+      return;
     } else if (!dead && !reachedGoal) {
       fill(0);
     } else if (dead) {
