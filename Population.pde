@@ -1,5 +1,7 @@
 class Population {
   Dot[] dots;
+  float fitnessSum;
+  int generation = 1;
   
   Population(int size) {
     dots = new Dot[size];
@@ -33,6 +35,44 @@ class Population {
       }
     }
     return true;
+  }
+  
+  void naturalSelection() {
+    Dot[] newDots = new Dot[dots.length];
+    calculateFitnessSum();
+    
+    for (int i = 0; i < newDots.length; i++) {
+       Dot parent = selectParent();
+       newDots[i] = parent.getBaby();
+    }
+    dots = newDots.clone();
+    generation++;
+  }
+  
+  void calculateFitnessSum() {
+    fitnessSum = 0;
+    for (int i = 0; i < dots.length; i++) {
+      fitnessSum += dots[i].fitness;
+    }
+  }
+  
+  Dot selectParent() {
+    float rand = random(fitnessSum);
+    float runningSum = 0;
+    for (int i = 0; i < dots.length; i++) {
+      runningSum += dots[i].fitness;
+      if (runningSum > rand) {
+         return dots[i];
+      }
+    }
+    
+    return null;
+  }
+  
+  void mutate() {
+    for (int i = 0; i < dots.length; i++) {
+      dots[i].brain.mutateBrain();
+    }
   }
   
 }

@@ -14,20 +14,23 @@ class Dot {
   Dot() {
     brain = new Brain(400);
     
-    pos = new PVector(width/2, height -10);
+    pos = new PVector(width/2, height-10);
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
   }
 
   void show() {
-    if (!dead) {
+    if (!dead && !reachedGoal) {
       fill(0);
-      ellipse(pos.x,pos.y,2*radius,2*radius);
-    } else {
+    } else if (dead) {
       fill(255,0,0);
-      ellipse(pos.x,pos.y,2*radius,2*radius);
+    } else if (reachedGoal) {
+      fill(0, 255, 0);
+    } else { //this shouldn't happen
+      println("ERROR");
+      fill(255,255,0);
     }
-    
+    ellipse(pos.x,pos.y,2*radius,2*radius);
   }
   
   void move() {
@@ -44,7 +47,7 @@ class Dot {
   }
   
   void update() {
-    println(pos.x,pos.y);
+    //println(pos.x,pos.y);
     if (!dead && !reachedGoal) {
       move();
       if (pos.x < radius || pos.y < radius || pos.x > width-radius || pos.y > height-radius) {
@@ -58,5 +61,11 @@ class Dot {
   void getFitness() {
     float distance = dist(pos.x,pos.y,goal.pos.x,goal.pos.y);
     fitness = 1.0/(distance * distance);
+  }
+  
+  Dot getBaby() {
+    Dot baby = new Dot();
+    baby.brain = brain.clone();
+    return baby;
   }
 }
