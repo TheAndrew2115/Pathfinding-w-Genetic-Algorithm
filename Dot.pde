@@ -55,7 +55,7 @@ class Dot {
     //println(pos.x,pos.y);
     if (!dead && !reachedGoal) {
       move();
-      if (pos.x < radius || pos.y < radius || pos.x > width-radius || pos.y > height-radius) {
+      if (pos.x < 2 || pos.y < 2 || pos.x > width-2 || pos.y > height-2) {
         dead = true; 
       } else if (dist(pos.x,pos.y,goal.pos.x,goal.pos.y) < 5) {
         reachedGoal = true;

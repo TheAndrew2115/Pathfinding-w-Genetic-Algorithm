@@ -1,5 +1,7 @@
+import java.util.HashSet;
 class Population {
   Dot[] dots;
+  Obstacles obs;
   float fitnessSum;
   int generation = 1;
   int bestDotIndex = 0;
@@ -10,6 +12,7 @@ class Population {
   
   Population(int size) {
     dots = new Dot[size];
+    obs = new Obstacles();
     for (int i = 0; i < size; i++) {
       dots[i] = new Dot();
     }
@@ -25,9 +28,12 @@ class Population {
   void update() {
     if (starting) {
       for (int i = 0; i < dots.length; i++) {
+        //println(obs.kill(dots[i].pos));
         if (dots[i].brain.step > minStep) {
           dots[i].dead = true;
-        } else {
+        } else if (obs.kill(dots[i].pos)) {
+          dots[i].dead = true;
+        }else {
           dots[i].update();
         }
       }

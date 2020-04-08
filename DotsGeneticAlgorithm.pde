@@ -6,6 +6,7 @@ HUD hud;
 
 void setup() {
   size(800,800);
+  
   test = new Population(100);
   hud =  new HUD(test);
 }
@@ -14,6 +15,12 @@ void draw() {
   background(255);
   goal.show();
   hud.show();
+  test.obs.show();
+  
+  if (mousePressed == true && !hud.overButton((int)hud.rectpos.x,(int)hud.rectpos.y,hud.rectSize,hud.rectSize)) {
+    PVector p = new PVector(mouseX, mouseY);
+    test.obs.addPVector(p);
+  }
   
   if (test.popDead()) {
     test.getFitness(); // Get fitness of all dots in population
@@ -27,7 +34,6 @@ void draw() {
 }
 
 void mousePressed() {
-    println("Pressed");
     if (hud.overButton((int)hud.rectpos.x,(int)hud.rectpos.y,hud.rectSize,hud.rectSize)) {
       if (test.starting == true) {
         test.starting = false;
