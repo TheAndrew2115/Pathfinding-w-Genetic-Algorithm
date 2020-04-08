@@ -2,6 +2,7 @@ class Population {
   Dot[] dots;
   float fitnessSum;
   int generation = 1;
+  int bestDotIndex = 0;
   
   Population(int size) {
     dots = new Dot[size];
@@ -14,6 +15,7 @@ class Population {
     for (int i = 0; i < dots.length; i++) {
       dots[i].show();
     }
+    dots[0].show();
   }
   
   void update() {
@@ -39,7 +41,11 @@ class Population {
   
   void naturalSelection() {
     Dot[] newDots = new Dot[dots.length];
+    setBestDot();
     calculateFitnessSum();
+    
+    newDots[0] = dots[bestDotIndex].getBaby(); //This prevents the generations from mutating in a harmful way
+    newDots[0].isBest = true;
     
     for (int i = 0; i < newDots.length; i++) {
        Dot parent = selectParent();
@@ -73,6 +79,18 @@ class Population {
     for (int i = 0; i < dots.length; i++) {
       dots[i].brain.mutateBrain();
     }
+  }
+  
+  void setBestDot() {
+    float max = 0;
+    int maxIndex = 0;
+    for (int i = 0; i < dots.length; i++) {
+      if (dots[i].fitness > max) {
+        max = dots[i].fitness;
+        maxIndex = i;
+      }
+    }
+    bestDotIndex = maxIndex;
   }
   
 }

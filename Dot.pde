@@ -9,6 +9,7 @@ class Dot {
   int maxSpeed = 5;
   boolean dead = false;
   boolean reachedGoal = false;
+  boolean isBest = false;
   float fitness = 0;
   
   Dot() {
@@ -20,7 +21,9 @@ class Dot {
   }
 
   void show() {
-    if (!dead && !reachedGoal) {
+    if (isBest) {
+      fill(0,0,255);
+    } else if (!dead && !reachedGoal) {
       fill(0);
     } else if (dead) {
       fill(255,0,0);
@@ -59,8 +62,12 @@ class Dot {
   }
   
   void getFitness() {
-    float distance = dist(pos.x,pos.y,goal.pos.x,goal.pos.y);
-    fitness = 1.0/(distance * distance);
+    if (reachedGoal) {
+      fitness = 1.0/(float)(brain.step * brain.step); //This takes into account how many steps the dot took to reach the goal
+    }else {
+      float distance = dist(pos.x,pos.y,goal.pos.x,goal.pos.y);
+      fitness = 1.0/(distance * distance);
+    }
   }
   
   Dot getBaby() {
