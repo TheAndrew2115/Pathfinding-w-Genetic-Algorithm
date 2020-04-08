@@ -65,7 +65,7 @@ class Dot {
   
   void getFitness() {
     if (reachedGoal) {
-      fitness = 1.0/(float)(brain.step * brain.step); //This takes into account how many steps the dot took to reach the goal
+      fitness = 1.0/16.0 + 10000.0/(float)(brain.step * brain.step); //This takes into account how many steps the dot took to reach the goal
     }else {
       float distance = dist(pos.x,pos.y,goal.pos.x,goal.pos.y);
       fitness = 1.0/(distance * distance);

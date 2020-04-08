@@ -4,6 +4,8 @@ class Population {
   int generation = 1;
   int bestDotIndex = 0;
   
+  int minStep = 400;
+  
   Population(int size) {
     dots = new Dot[size];
     for (int i = 0; i < size; i++) {
@@ -20,7 +22,11 @@ class Population {
   
   void update() {
     for (int i = 0; i < dots.length; i++) {
-      dots[i].update();
+      if (dots[i].brain.step > minStep) {
+        dots[i].dead = true;
+      } else {
+        dots[i].update();
+      }
     }
   }
   
@@ -91,6 +97,10 @@ class Population {
       }
     }
     bestDotIndex = maxIndex;
+    
+    if (dots[bestDotIndex].reachedGoal) {
+      minStep = dots[bestDotIndex].brain.step;
+    }
   }
   
 }
