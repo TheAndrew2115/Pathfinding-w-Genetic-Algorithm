@@ -22,7 +22,7 @@ class Obstacles {
   boolean kill(PVector p) {
     for (int i = -4; i < 5; i++) {
       for (int j = -4; j < 5; j++) {
-        PVector scan = new PVector((int)p.x - i, (int)p.y- j);
+        PVector scan = new PVector((int)p.x - i, (int) p.y- j);
         if (s.contains(scan)) {
           return true;
         }
